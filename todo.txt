@@ -1,0 +1,6 @@
+1) undigraph algorithms: bridges, cutpoints, bicone, biconv
+1.1) dfs! 
+1.5) tree algorithms: lca, hld? 
+2) mcmf
+3) geometry: point2d, point3d, algorithms: mindisc, convex hull
+4) strings: aho-corasick, suffix structures, duval (with my problem); learn suffix automaton! 
