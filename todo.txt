@@ -4,3 +4,11 @@
 2) mcmf
 3) geometry: point2d, point3d, algorithms: mindisc, convex hull
 4) strings: aho-corasick, suffix structures, duval (with my problem); learn suffix automaton! 
+5) multiply long longs modulo long long
+6) simplex method
+7) numeric algorithms: extended euclid, CRT
+8) segment tree
+9) treap
+10) mul long long
+11) bigint
+12) wavelet trees
