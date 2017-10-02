@@ -1,25 +1,52 @@
-  1) undigraph algorithms: bridges, cutpoints, bicone, biconv
-  1.01) make graph global? 
-  1.1) dfs! 
-  1.2) chinese algo
-  1.5) tree algorithms: lca, hld? (test hld on CF Round 434 E) 
-  2) mcmf
-  3) geometry: point2d, point3d, algorithms: mindisc, convex hull
-  4) strings: aho-corasick, suffix structures, duval (with my problem); learn suffix automaton!
-  4.1) hashes; kmp, z? 
-  4.2) build suffix tree from suffix automaton
-  5) multiply long longs modulo long long
-  6) simplex method
-  7) numeric algorithms: extended euclid, CRT, discrete logarithm, discrete root
-  7.1) matrix determinant
-  7.2) gaussian elimination in general
-  8) segment tree
-  9) treap
-  10) bigint
-  11) wavelet trees
-  12) polynomial interpolation
-  13) polynomial division, inverse polynomial
-  14) flow decomposition
-  15) eertree, manacher
-+ 16) 2-sat
-  17) matrix multiplication / exponentiation
+  0) make graph global? 
+  1) bridges
+  2) cutpoints
+  3) bicone
+  4) biconv
+  5) dfs! 
+  6) chinese algo
+  7) lca
+  8) hld? (test hld on CF Round 434 E) 
+  9) mcmf
+  10) maximum matching
+  11) hungarian algorithm
+  12) point2d
+  13) mindisc
+  14) convex hull
+  15) semiplane intersection
+  16) point3d
+  17) convex hull 3d
+  18) aho-corasick
+  19) suffix array
++ 20) duval
++ 21) duval-prefixes
+  22) suffix automaton
+  23) kmp
++ 24) z
+  25) suffix tree (presumably from suffix automaton)
++ 26) multiply long longs modulo long long
+  27) simplex method
++ 28) extended euclid
+  29) CRT
+  30) discrete logarithm
+  31) discrete root
+  32) matrix determinant
+  33) gaussian elimination in general
+  34) segment tree
+  35) treap
+  36) bigint
+  37) wavelet trees
+  38) polynomial interpolation
+  39) polynomial division
+  40) inverse polynomial
+  41) flow decomposition
+  42) eertree
+  43) manacher
++ 44) 2-sat
+  45) matrix multiplication
+  46) exponentiation
+  47) dynamic connectivity offline
+  48) link-cut
+  49) dynamic connectivity online
+  50) eprintf
+  51) pollard rho
