@@ -49,7 +49,7 @@
   48) link-cut
   49) dynamic connectivity online
   50) eprintf
-  51) pollard rho
++ 51) pollard rho
   52) CRT garner
   53) primitive root
 + 54) miller-rabin test
