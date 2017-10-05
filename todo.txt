@@ -44,13 +44,16 @@
   43) manacher
 + 44) 2-sat
   45) matrix multiplication
-  46) exponentiation
+  46) matrix exponentiation
   47) dynamic connectivity offline
   48) link-cut
   49) dynamic connectivity online
-  50) eprintf
++ 50) eprintf
 + 51) pollard rho
   52) CRT garner
   53) primitive root
 + 54) miller-rabin test
   55) global min-cut
+
+probably not to do, but still fun:
+  1) quadratic sieve
