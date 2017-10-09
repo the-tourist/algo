@@ -54,7 +54,7 @@
 + 53) primitive root
 + 54) miller-rabin test
   55) global min-cut
-  56) gomory-hu tree
++ 56) gomory-hu tree
   57) some kind of sqrt-decomposition
   58) fix bugs in plugin :( [sometimes prints trash at the end]
   59) linear sieve
