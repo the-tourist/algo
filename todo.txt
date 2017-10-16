@@ -3,9 +3,9 @@
   2) cutpoints
   3) bicone
   4) biconv
-  5) dfs! 
++ 5) dfs
   6) chinese algo
-  7) lca
++ 7) lca
   8) hld (test hld on CF Round 434 E) 
   9) mcmf
 + 10) maximum matching
@@ -59,7 +59,9 @@
   58) fix bugs in plugin :( [sometimes prints trash at the end]
   59) linear sieve
   60) persistent segment tree
-+ 61) fast flow (preflow push? see https://pastebin.com/exQM152L)
++ 61) fast flow (preflow push?)
+  62) fast input
+  63) fast output
 
 probably not to do, but still fun:
   1) quadratic sieve
