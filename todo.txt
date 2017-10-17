@@ -17,7 +17,7 @@
   16) point3d
   17) convex hull 3d
   18) aho-corasick
-  19) suffix array
++ 19) suffix array
 + 20) duval
 + 21) duval-prefixes
   22) suffix automaton
@@ -64,6 +64,7 @@
   63) fast output
   64) dynamic segment tree
   65) ji driver segment tree
+  66) sparse table (http://codeforces.com/contest/875/submission/31414300)
 
 probably not to do, but still fun:
   1) quadratic sieve
