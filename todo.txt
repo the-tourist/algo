@@ -32,7 +32,7 @@
   31) discrete root
   32) matrix determinant
   33) gaussian elimination in general
-  34) segment tree
++ 34) segment tree
   35) treap
   36) bigint
   37) wavelet trees
