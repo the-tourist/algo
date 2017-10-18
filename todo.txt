@@ -41,7 +41,7 @@
   40) inverse polynomial
   41) flow decomposition
   42) eertree
-  43) manacher
++ 43) manacher
 + 44) 2-sat
   45) matrix multiplication
   46) matrix exponentiation
