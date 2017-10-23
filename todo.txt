@@ -65,6 +65,11 @@
   64) dynamic segment tree
   65) ji driver segment tree
   66) sparse table (http://codeforces.com/contest/875/submission/31414300)
+  67) template for gcj/hackercup (multithreaded)
+  68) li chao segment tree
+  69) berlekamp-massey
+  70) multipoint evaluation (http://people.csail.mit.edu/madhu/ST12/scribe/lect06.pdf)
 
 probably not to do, but still fun:
   1) quadratic sieve
+.. 
