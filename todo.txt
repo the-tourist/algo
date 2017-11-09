@@ -1,12 +1,12 @@
   0) make graph global? 
-  1) bridges
-  2) cutpoints
++ 1) bridges
++ 2) cutpoints
   3) bicone
   4) biconv
 + 5) dfs
   6) chinese algo
 + 7) lca
-  8) hld (test hld on CF Round 434 E) 
++ 8) hld (test hld on CF Round 434 E) 
   9) mcmf
 + 10) maximum matching
   11) hungarian algorithm
