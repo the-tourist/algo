@@ -1,8 +1,7 @@
-  0) make graph global? 
 + 1) bridges
 + 2) cutpoints
-  3) bicone
-  4) biconv
++ 3) bicone
++ 4) biconv
 + 5) dfs
   6) chinese algo
 + 7) lca
@@ -69,6 +68,7 @@
   68) li chao segment tree
   69) berlekamp-massey
   70) multipoint evaluation (http://people.csail.mit.edu/madhu/ST12/scribe/lect06.pdf)
+  71) euler tour
 
 probably not to do, but still fun:
   1) quadratic sieve
