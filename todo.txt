@@ -68,7 +68,8 @@
   68) li chao segment tree
   69) berlekamp-massey
   70) multipoint evaluation (http://people.csail.mit.edu/madhu/ST12/scribe/lect06.pdf)
-  71) euler tour
++ 71) euler tour
+  72) some kind of ford-bellman
 
 probably not to do, but still fun:
   1) quadratic sieve
