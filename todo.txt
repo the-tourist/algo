@@ -8,7 +8,7 @@
 + 8) hld (test hld on CF Round 434 E) 
 + 9) mcmf
 + 10) maximum matching
-  11) hungarian algorithm
++ 11) hungarian algorithm
   12) point2d
   13) mindisc
   14) convex hull
@@ -70,6 +70,7 @@
   70) multipoint evaluation (http://people.csail.mit.edu/madhu/ST12/scribe/lect06.pdf)
 + 71) euler tour
   72) some kind of ford-bellman
+  73) edmonds blossom
 
 probably not to do, but still fun:
   1) quadratic sieve
