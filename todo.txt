@@ -38,7 +38,7 @@
   38) polynomial interpolation
   39) polynomial division (memsql cup 3.0 r2 G)
   40) inverse polynomial
-  41) flow decomposition
++ 41) flow decomposition
   42) eertree
 + 43) manacher
 + 44) 2-sat
