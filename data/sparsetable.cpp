@@ -1,9 +1,4 @@
-// usage:
-//   auto fun = [&](int i, int j) { return min(i, j); };
-//   SparseTable<int, decltype(fun)> st(a, fun);
-// or:
-//   SparseTable<int> st(a, [&](int i, int j) { return min(i, j); });
-template <typename T, class F = function<T(const T&, const T&)>>
+template <typename T, typename F>
 class SparseTable {
  public:
   int n;
