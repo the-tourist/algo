@@ -143,28 +143,27 @@ U& operator>>(U& stream, Modular<T>& number) {
   return stream;
 }
 
-/*
-using ModType = int;
+// using ModType = int;
 
-struct VarMod { static ModType value; };
-ModType VarMod::value;
-ModType& md = VarMod::value;
-using Mint = Modular<VarMod>;
-*/
+// struct VarMod { static ModType value; };
+// ModType VarMod::value;
+// ModType& md = VarMod::value;
+// using Mint = Modular<VarMod>;
 
 constexpr int md = ${0};
 using Mint = Modular<std::integral_constant<decay<decltype(md)>::type, md>>;
 
-/*vector<Mint> fact(1, 1);
-vector<Mint> inv_fact(1, 1);
+// vector<Mint> fact(1, 1);
+// vector<Mint> inv_fact(1, 1);
 
-Mint C(int n, int k) {
-  if (k < 0 || k > n) {
-    return 0;
-  }
-  while ((int) fact.size() < n + 1) {
-    fact.push_back(fact.back() * (int) fact.size());
-    inv_fact.push_back(1 / fact.back());
-  }
-  return fact[n] * inv_fact[k] * inv_fact[n - k];
-}*/
+// Mint C(int n, int k) {
+//   if (k < 0 || k > n) {
+//     return 0;
+//   }
+//   while ((int) fact.size() < n + 1) {
+//     fact.push_back(fact.back() * (int) fact.size());
+//     inv_fact.push_back(1 / fact.back());
+//   }
+//   return fact[n] * inv_fact[k] * inv_fact[n - k];
+// }
+
