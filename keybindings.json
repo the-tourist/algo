@@ -1,0 +1,96 @@
+[
+  {
+    "key": "ctrl+n",
+    "command": "explorer.newFile"
+  },
+  {
+    "key": "ctrl+shift+n",
+    "command": "explorer.newFolder"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "copyFilePath",
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+y",
+    "command": "editor.action.deleteLines"
+  },
+  {
+    "key": "ctrl+m",
+    "command": "-editor.action.toggleTabFocusMode"
+  },
+  {
+    "key": "home",
+    "command": "cursorLineStart",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+pageUp",
+    "command": "cursorTop",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+pageDown",
+    "command": "cursorBottom",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "runCommands",
+    "when": "editorTextFocus",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.focus",
+        {
+          "command": "workbench.action.terminal.sendSequence",
+          "args": {
+            "text": "\u0003cd \"${fileDirname}\"\u000D"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.focus",
+        {
+          "command": "workbench.action.terminal.sendSequence",
+          "args": {
+            "text": "\u0003cd \"${fileDirname}\" && g++ ${fileBasename} -o ${fileBasenameNoExtension}.exe -O2 -Wall -Wl,--stack=536870912 -Wextra -std=c++20 -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -fmax-errors=1 -DLOCAL\u000D"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "ctrl+.",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.focus",
+        {
+          "command": "workbench.action.terminal.sendSequence",
+          "args": {
+            "text": "\u0003cd \"${fileDirname}\" && wsl g++ ${fileBasename} -o ${fileBasenameNoExtension}.lxe -g -std=c++17 -D_GLIBCXX_DEBUG && wsl gdb ${fileBasenameNoExtension}.lxe\u000D"
+          }
+        }
+      ]
+    }
+  },
+]

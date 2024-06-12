@@ -1,0 +1,32 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 0,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.integrated.commandsToSkipShell": [
+        "explorer.newFile"
+    ],
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.autoIndent": "keep",
+    "editor.minimap.enabled": false,
+    "editor.parameterHints.enabled": false,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.tabCompletion": "onlySnippets",
+    "editor.tabSize": 2,
+    "explorer.incrementalNaming": "smart",
+    "C_Cpp.default.compilerPath": "g++",
+    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.defines": [
+        "LOCAL",
+        "_GLIBCXX_DEBUG"
+    ],
+    "C_Cpp.autoAddFileAssociations": false,
+    "telemetry.telemetryLevel": "off",
+    "workbench.startupEditor": "none",
+    "extensions.ignoreRecommendations": true
+}
