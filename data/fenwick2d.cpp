@@ -4,7 +4,8 @@ class FenwickTree2D {
   vector<vector<T>> fenw;
   int n, m;
 
-  FenwickTree2D(int _n, int _m) : n(_n), m(_m) {
+  FenwickTree() : n(0), m(0) {}
+  FenwickTree2D(int n_, int m_) : n(n_), m(m_) {
     fenw.resize(n);
     for (int i = 0; i < n; i++) {
       fenw[i].resize(m);
@@ -24,7 +25,7 @@ class FenwickTree2D {
     }
   }
 
-  T Get(int i, int j) {
+  T Query(int i, int j) {
     assert(0 <= i && i <= n && 0 <= j && j <= m);
     T v{};
     int x = i;
