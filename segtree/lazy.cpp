@@ -1,62 +1,53 @@
+template <typename Info, typename Tag>
 class LazySegmentTree {
  public:
-  struct Node {
-    ${0}... a = ...;
-  };
-  
-  struct Tag {
-    ... add = ...;
-  };
-
   int n;
-  vector<Node> nodes;
+  vector<Info> infos;
   vector<Tag> tags;
   seg_tree::in_order_layout layout;
 
-  void Apply(seg_tree::point a, Tag t) {
-    ...
-    nodes[a].a += ...;
-    if (a < n) {
-      ...
-      tags[a].add += t.add;
+  void Apply(seg_tree::point a, const Tag& t) {
+    auto [l, r] = layout.get_node_bounds(a);
+    if (!t.ApplyTo(infos[a], l, r)) {
+      assert(a < n);
+      DowndateNode(a);
+      Apply(a.c(0), t);
+      Apply(a.c(1), t);
+      UpdateNode(a);
+      return;
     }
-  }
-
-  Node Unite(Node a, Node b) {
-    Node res;
-    ...
-    return res;
+    if (a < n) {
+      t.ApplyTo(tags[a]);
+    }
   }
 
   void DowndateNode(seg_tree::point a) {
-    ...
-    if (tags[a].add != 0) {
+    if (!tags[a].Empty()) {
       Apply(a.c(0), tags[a]);
       Apply(a.c(1), tags[a]);
-      tags[a].add = 0;
+      tags[a] = Tag();
     }
   }
-  
-  void UpdateNode(seg_tree::point a) {
-    nodes[a] = Unite(nodes[a.c(0)], nodes[a.c(1)]);
-  }
-  
-  LazySegmentTree(int n_) : LazySegmentTree(vector<Node>(n_)) {}
 
-  LazySegmentTree(const vector<Node>& a) : n(int(a.size())) {
-    assert(n > 0);
-    nodes.resize(2 * n);
+  void UpdateNode(seg_tree::point a) {
+    infos[a] = infos[a.c(0)].Unite(infos[a.c(1)]);
+  }
+
+  LazySegmentTree() : LazySegmentTree(0) {}
+  LazySegmentTree(int n_) : LazySegmentTree(vector<Info>(n_)) {}
+  LazySegmentTree(const vector<Info>& a) : n(int(a.size())) {
+    infos.resize(2 * n);
     tags.resize(n);
     layout = seg_tree::in_order_layout(n);
     for (int i = 0; i < n; i++) {
-      nodes[layout.get_point(i)] = a[i];
+      infos[layout.get_point(i)] = a[i];
     }
     for (int i = n - 1; i >= 1; i--) {
-      nodes[i] = Unite(nodes[2 * i], nodes[2 * i + 1]);
+      UpdateNode(seg_tree::point(i));
     }
   }
 
-  void Modify(int l, int r, Tag t) {
+  void Modify(int l, int r, const Tag& t) {
     auto rng = layout.get_range(l, r);
     rng.for_parents_down([&](seg_tree::point a) {
       DowndateNode(a);
@@ -69,27 +60,35 @@ class LazySegmentTree {
     });
   }
 
-  void Set(int p, Node v) {
+  void Set(int p, const Info& v) {
     auto pt = layout.get_point(p);
     pt.for_parents_down([&](seg_tree::point a) {
       DowndateNode(a);
     });
-    nodes[pt] = v;
+    infos[pt] = v;
     pt.for_parents_up([&](seg_tree::point a) {
       UpdateNode(a);
     });
   }
 
-  Node Get(int l, int r) {
+  Info Query(int l, int r) {
     auto rng = layout.get_range(l, r);
     rng.for_parents_down([&](seg_tree::point a) {
       DowndateNode(a);
     });
-    Node res;
+    Info res;
     rng.for_each_l_to_r([&](seg_tree::point a) {
-      res = Unite(res, nodes[a]);
+      res = res.Unite(infos[a]);
     });
     return res;
+  }
+
+  Info Get(int p) {
+    auto pt = layout.get_point(p);
+    pt.for_parents_down([&](seg_tree::point a) {
+      DowndateNode(a);
+    });
+    return infos[pt];
   }
 
   template<typename F>
@@ -99,19 +98,19 @@ class LazySegmentTree {
       DowndateNode(a);
     });
     int res = n;
-    Node sum;
+    Info sum;
     rng.for_each_l_to_r([&](seg_tree::point a) {
       if (res != n) {
         return;
       }
-      auto new_sum = Unite(sum, nodes[a]);
+      auto new_sum = sum.Unite(infos[a]);
       if (f(new_sum)) {
         sum = new_sum;
         return;
       }
       while (a < n) {
         DowndateNode(a);
-        new_sum = Unite(sum, nodes[a.c(0)]);
+        new_sum = sum.Unite(infos[a.c(0)]);
         if (f(new_sum)) {
           sum = new_sum;
           a = a.c(1);
@@ -131,19 +130,19 @@ class LazySegmentTree {
       DowndateNode(a);
     });
     int res = 0;
-    Node sum;
+    Info sum;
     rng.for_each_r_to_l([&](seg_tree::point a) {
       if (res != 0) {
         return;
       }
-      auto new_sum = Unite(nodes[a], sum);
+      auto new_sum = infos[a].Unite(sum);
       if (f(new_sum)) {
         sum = new_sum;
         return;
       }
       while (a < n) {
         DowndateNode(a);
-        new_sum = Unite(nodes[a.c(1)], sum);
+        new_sum = infos[a.c(1)].Unite(sum);
         if (f(new_sum)) {
           sum = new_sum;
           a = a.c(0);
@@ -156,4 +155,3 @@ class LazySegmentTree {
     return res;
   }
 };
-

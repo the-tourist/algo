@@ -2,15 +2,7 @@ namespace seg_tree {
 
 // Floor of log_2(a); index of highest 1-bit
 inline int floor_log_2(int a) {
-  return a ? (8 * sizeof(a)) - 1 - countl_zero(uint32_t(a)) : -1;
-}
-
-inline int ceil_log_2(int a) {
-  return a ? floor_log_2(2*a-1) : -1;
-}
-
-inline int next_pow_2(int a) {
-  return 1 << ceil_log_2(a);
+  return a ? bit_width(unsigned(a)) - 1 : -1;
 }
 
 struct point {
@@ -24,7 +16,7 @@ struct point {
   /* implicit */ operator int() const { return a; }
 
   point c(bool z) const {
-    return point((a<<1)|z);
+    return point((a << 1) | z);
   }
 
   point operator [] (bool z) const {
@@ -32,7 +24,7 @@ struct point {
   }
 
   point p() const {
-    return point(a>>1);
+    return point(a >> 1);
   }
 
   friend std::ostream& operator << (std::ostream& o, const point& p) { return o << int(p); }
@@ -71,7 +63,7 @@ struct range {
   explicit range(std::array<int, 2> r) : range(r[0], r[1]) {}
 
   explicit operator std::array<int, 2>() const {
-    return {a,b};
+    return {a, b};
   }
 
   const int& operator[] (bool z) const {
@@ -101,11 +93,11 @@ struct range {
   // Iterate over the range from left to right.
   //    Calls f(point)
   template <typename F> void for_each_l_to_r(F f) const {
-    int anc_depth = floor_log_2((a-1) ^ b);
+    int anc_depth = floor_log_2((a - 1) ^ b);
     int anc_msk = (1 << anc_depth) - 1;
-    for (int v = (-a) & anc_msk; v; v &= v-1) {
-      int i = countr_zero(uint32_t(v));
-      f(point(((a-1) >> i) + 1));
+    for (int v = (-a) & anc_msk; v; v &= v - 1) {
+      int i = countr_zero(unsigned(v));
+      f(point(((a - 1) >> i) + 1));
     }
     for (int v = b & anc_msk; v; ) {
       int i = floor_log_2(v);
@@ -117,15 +109,15 @@ struct range {
   // Iterate over the range from right to left.
   //    Calls f(point)
   template <typename F> void for_each_r_to_l(F f) const {
-    int anc_depth = floor_log_2((a-1) ^ b);
+    int anc_depth = floor_log_2((a - 1) ^ b);
     int anc_msk = (1 << anc_depth) - 1;
-    for (int v = b & anc_msk; v; v &= v-1) {
-      int i = countr_zero(uint32_t(v));
+    for (int v = b & anc_msk; v; v &= v - 1) {
+      int i = countr_zero(unsigned(v));
       f(point((b >> i) - 1));
     }
     for (int v = (-a) & anc_msk; v; ) {
       int i = floor_log_2(v);
-      f(point(((a-1) >> i) + 1));
+      f(point(((a - 1) >> i) + 1));
       v ^= (1 << i);
     }
   }
@@ -133,9 +125,9 @@ struct range {
   template <typename F> void for_parents_down(F f) const {
     int x = a, y = b;
     if ((x ^ y) > x) { x <<= 1, std::swap(x, y); }
-    int dx = countr_zero(uint32_t(x));
-    int dy = countr_zero(uint32_t(y));
-    int anc_depth = floor_log_2((x-1) ^ y);
+    int dx = countr_zero(unsigned(x));
+    int dy = countr_zero(unsigned(y));
+    int anc_depth = floor_log_2((x - 1) ^ y);
     for (int i = floor_log_2(x); i > dx; i--) {
       f(point(x >> i));
     }
@@ -147,13 +139,13 @@ struct range {
   template <typename F> void for_parents_up(F f) const {
     int x = a, y = b;
     if ((x ^ y) > x) { x <<= 1, std::swap(x, y); }
-    int dx = countr_zero(uint32_t(x));
-    int dy = countr_zero(uint32_t(y));
-    int anc_depth = floor_log_2((x-1) ^ y);
-    for (int i = dx+1; i <= anc_depth; i++) {
+    int dx = countr_zero(unsigned(x));
+    int dy = countr_zero(unsigned(y));
+    int anc_depth = floor_log_2((x - 1) ^ y);
+    for (int i = dx + 1; i <= anc_depth; i++) {
       f(point(x >> i));
     }
-    for (int v = y >> (dy+1); v; v >>= 1) {
+    for (int v = y >> (dy + 1); v; v >>= 1) {
       f(point(v));
     }
   }
@@ -164,21 +156,21 @@ struct in_order_layout {
   using point = seg_tree::point;
   using range = seg_tree::range;
 
-  int N, S;
-  in_order_layout() : N(0), S(0) {}
-  in_order_layout(int N_) : N(N_), S(N ? next_pow_2(N) : 0) {}
+  int n, s;
+  in_order_layout() : n(0), s(0) {}
+  in_order_layout(int n_) : n(n_), s(n ? bit_ceil(unsigned(n)) : 0) {}
 
   point get_point(int a) const {
-    assert(0 <= a && a < N);
-    a += S;
-    return point(a >= 2 * N ? a - N : a);
+    assert(0 <= a && a < n);
+    a += s;
+    return point(a >= 2 * n ? a - n : a);
   }
 
   range get_range(int a, int b) const {
-    assert(0 <= a && a <= b && b <= N);
-    if (N == 0) return range();
-    a += S, b += S;
-    return range((a >= 2 * N ? 2*(a-N) : a), (b >= 2 * N ? 2*(b-N) : b));
+    assert(0 <= a && a <= b && b <= n);
+    if (n == 0) return range();
+    a += s, b += s;
+    return range((a >= 2 * n ? 2 * (a - n) : a), (b >= 2 * n ? 2 * (b - n) : b));
   }
 
   range get_range(std::array<int, 2> p) const {
@@ -187,26 +179,26 @@ struct in_order_layout {
 
   int get_leaf_index(point pt) const {
     int a = int(pt);
-    assert(N <= a && a < 2 * N);
-    return (a < S ? a + N : a) - S;
+    assert(n <= a && a < 2 * n);
+    return (a < s ? a + n : a) - s;
   }
 
   std::array<int, 2> get_node_bounds(point pt) const {
     int a = int(pt);
-    assert(1 <= a && a < 2 * N);
-    int l = countl_zero(uint32_t(a)) - countl_zero(uint32_t(2*N-1));
-    int x = a << l, y = (a+1) << l;
-    assert(S <= x && x < y && y <= 2*S);
-    return {(x >= 2 * N ? (x>>1) + N : x) - S, (y >= 2 * N ? (y>>1) + N : y) - S};
+    assert(1 <= a && a < 2 * n);
+    int l = countl_zero(unsigned(a)) - countl_zero(unsigned(2 * n - 1));
+    int x = a << l, y = (a + 1) << l;
+    assert(s <= x && x < y && y <= 2 * s);
+    return {(x >= 2 * n ? (x >> 1) + n : x) - s, (y >= 2 * n ? (y >> 1) + n : y) - s};
   }
 
   int get_node_split(point pt) const {
     int a = int(pt);
-    assert(1 <= a && a < N);
-    int l = countl_zero(uint32_t(2*a+1)) - countl_zero(uint32_t(2*N-1));
-    int x = (2*a+1) << l;
-    assert(S <= x && x < 2*S);
-    return (x >= 2 * N ? (x>>1) + N : x) - S;
+    assert(1 <= a && a < n);
+    int l = countl_zero(unsigned(2 * a + 1)) - countl_zero(unsigned(2 * n - 1));
+    int x = (2 * a + 1) << l;
+    assert(s <= x && x < 2 * s);
+    return (x >= 2 * n ? (x >> 1) + n : x) - s;
   }
 
   int get_node_size(point pt) const {
@@ -220,19 +212,19 @@ struct circular_layout {
   using point = seg_tree::point;
   using range = seg_tree::range;
 
-  int N;
-  circular_layout() : N(0) {}
-  circular_layout(int N_) : N(N_) {}
+  int n;
+  circular_layout() : n(0) {}
+  circular_layout(int n_) : n(n_) {}
 
   point get_point(int a) const {
-    assert(0 <= a && a < N);
-    return point(N + a);
+    assert(0 <= a && a < n);
+    return point(n + a);
   }
 
   range get_range(int a, int b) const {
-    assert(0 <= a && a <= b && b <= N);
-    if (N == 0) return range();
-    return range(N + a, N + b);
+    assert(0 <= a && a <= b && b <= n);
+    if (n == 0) return range();
+    return range(n + a, n + b);
   }
 
   range get_range(std::array<int, 2> p) const {
@@ -241,33 +233,33 @@ struct circular_layout {
 
   int get_leaf_index(point pt) const {
     int a = int(pt);
-    assert(N <= a && a < 2 * N);
-    return a - N;
+    assert(n <= a && a < 2 * n);
+    return a - n;
   }
 
-  // Returns {x,y} so that 0 <= x < N and 1 <= y <= N
-  // If the point is non-wrapping, then 0 <= x < y <= N
+  // Returns {x,y} so that 0 <= x < n and 1 <= y <= n
+  // If the point is non-wrapping, then 0 <= x < y <= n
   std::array<int, 2> get_node_bounds(point pt) const {
     int a = int(pt);
-    assert(1 <= a && a < 2 * N);
-    int l = __builtin_clz(a) - __builtin_clz(2*N-1);
-    int S = next_pow_2(N);
-    int x = a << l, y = (a+1) << l;
-    assert(S <= x && x < y && y <= 2*S);
-    return {(x >= 2 * N ? x >> 1 : x) - N, (y > 2 * N ? y >> 1 : y) - N};
+    assert(1 <= a && a < 2 * n);
+    int l = countl_zero(unsigned(a)) - countl_zero(unsigned(2 * n - 1));
+    int s = bit_ceil(unsigned(n));
+    int x = a << l, y = (a + 1) << l;
+    assert(s <= x && x < y && y <= 2 * s);
+    return {(x >= 2 * n ? x >> 1 : x) - n, (y > 2 * n ? y >> 1 : y) - n};
   }
 
-  // Returns the split point of the node, such that 1 <= s <= N.
+  // Returns the split point of the node, such that 1 <= s <= n.
   int get_node_split(point pt) const {
     int a = int(pt);
-    assert(1 <= a && a < N);
+    assert(1 <= a && a < n);
     return get_node_bounds(pt.c(0))[1];
   }
 
   int get_node_size(point pt) const {
     auto bounds = get_node_bounds(pt);
     int r = bounds[1] - bounds[0];
-    return r > 0 ? r : r + N;
+    return r > 0 ? r : r + n;
   }
 };
 

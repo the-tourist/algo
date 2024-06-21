@@ -1,13 +1,12 @@
 template <typename T>
-class FenwickTree {
+class DynamicFenwickTree {
  public:
-  vector<T> fenw;
+  HashMap<int, T> fenw;
   int n;
   int pw;
 
-  FenwickTree() : n(0) {}
-  FenwickTree(int n_) : n(n_) {
-    fenw.resize(n);
+  DynamicFenwickTree() : n(0) {}
+  DynamicFenwickTree(int n_) : n(n_) {
     pw = bit_floor(unsigned(n));
   }
 
@@ -23,7 +22,10 @@ class FenwickTree {
     assert(0 <= x && x <= n);
     T v{};
     while (x > 0) {
-      v += fenw[x - 1];
+      auto it = fenw.find(x - 1);
+      if (it != fenw.end()) {
+        v += it->second;
+      }
       x &= x - 1;
     }
     return v;
@@ -36,7 +38,10 @@ class FenwickTree {
     for (int len = pw; len > 0; len >>= 1) {
       if (at + len <= n) {
         auto nv = v;
-        nv += fenw[at + len - 1];
+        auto it = fenw.find(at + len - 1);
+        if (it != fenw.end()) {
+          nv += it->second;
+        }
         if (!(c < nv)) {
           v = nv;
           at += len;
