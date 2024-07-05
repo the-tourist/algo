@@ -1,23 +1,23 @@
 template <typename T>
-class hld_forest : public lca_forest<T> {
+class hld_forest : public dfs_forest<T> {
  public:
-  using lca_forest<T>::edges;
-  using lca_forest<T>::g;
-  using lca_forest<T>::n;
-  using lca_forest<T>::pv;
-  using lca_forest<T>::sz;
-  using lca_forest<T>::pos;
-  using lca_forest<T>::order;
-  using lca_forest<T>::depth;
-  using lca_forest<T>::dfs;
-  using lca_forest<T>::dfs_all;
-  using lca_forest<T>::lca;
-  using lca_forest<T>::build_lca;
+  using dfs_forest<T>::edges;
+  using dfs_forest<T>::g;
+  using dfs_forest<T>::n;
+  using dfs_forest<T>::pv;
+  using dfs_forest<T>::sz;
+  using dfs_forest<T>::root;
+  using dfs_forest<T>::pos;
+  using dfs_forest<T>::end;
+  using dfs_forest<T>::order;
+  using dfs_forest<T>::depth;
+  using dfs_forest<T>::dfs;
+  using dfs_forest<T>::dfs_all;
 
   vector<int> head;
   vector<int> visited;
 
-  hld_forest(int _n) : lca_forest<T>(_n) {
+  hld_forest(int _n) : dfs_forest<T>(_n) {
     visited.resize(n);
   }
 
@@ -54,7 +54,6 @@ class hld_forest : public lca_forest<T> {
         swap(g[i][0], g[i][bid]);
       }
     }
-    build_lca();
     head.resize(n);
     for (int i = 0; i < n; i++) {
       head[i] = i;
@@ -114,5 +113,34 @@ class hld_forest : public lca_forest<T> {
       }
     }
     return true;
+  }
+
+  inline bool anc(int x, int y) {
+    return (pos[x] <= pos[y] && end[y] <= end[x]);
+  }
+
+  inline int go_up(int x, int up) {
+    int target = depth[x] - up;
+    if (target < 0) {
+      return -1;
+    }
+    while (depth[head[x]] > target) {
+      x = pv[head[x]];
+    }
+    return order[pos[x] - depth[x] + target];
+  }
+
+  inline int lca(int x, int y) {
+    if (root[x] != root[y]) {
+      return -1;
+    }
+    while (head[x] != head[y]) {
+      if (depth[head[x]] > depth[head[y]]) {
+        x = pv[head[x]];
+      } else {
+        y = pv[head[y]];
+      }
+    }
+    return depth[x] < depth[y] ? x : y;
   }
 };
