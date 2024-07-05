@@ -6,18 +6,17 @@ class DisjointSparseTable {
   F func;
 
   DisjointSparseTable(const vector<T>& a, const F& f) : n(int(a.size())), func(f) {
-    for (int p = 0; (1 << p) <= n; p++) {
+    mat.push_back(a);
+    for (int p = 1; (1 << p) < n; p++) {
       mat.emplace_back(n);
-      for (int mid = 1 << p; mid <= n; mid += 1 << (p + 1)) {
+      for (int mid = 1 << p; mid < n; mid += 1 << (p + 1)) {
         mat[p][mid - 1] = a[mid - 1];
         for (int j = mid - 2; j >= mid - (1 << p); j--) {
           mat[p][j] = func(a[j], mat[p][j + 1]);
         }
-        if (mid < n) {
-          mat[p][mid] = a[mid];
-          for (int j = mid + 1; j < min(n, mid + (1 << p)); j++) {
-            mat[p][j] = func(mat[p][j - 1], a[j]);
-          }
+        mat[p][mid] = a[mid];
+        for (int j = mid + 1; j < min(n, mid + (1 << p)); j++) {
+          mat[p][j] = func(mat[p][j - 1], a[j]);
         }
       }
     }
