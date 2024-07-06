@@ -1,3 +1,17 @@
+template <typename T, size_t N, size_t M, size_t K>
+array<array<T, K>, N> operator*(const array<array<T, M>, N>& a, const array<array<T, K>, M>& b) {
+  array<array<T, K>, N> c;
+  for (size_t i = 0; i < N; i++) {
+    for (size_t j = 0; j < K; j++) {
+      c[i][j] = 0;
+      for (size_t k = 0; k < M; k++) {
+        c[i][j] += a[i][k] * b[k][j];
+      }
+    }
+  }
+  return c;
+}
+
 template <typename T>
 vector<vector<T>> operator*(const vector<vector<T>>& a, const vector<vector<T>>& b) {
   if (a.empty() || b.empty()) {
