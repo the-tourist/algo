@@ -1,10 +1,15 @@
 #include <ext/pb_ds/assoc_container.hpp>
 
-using namespace __gnu_pbds;
+template <typename K, typename V, typename Comp = std::less<K>>
+using ordered_map = __gnu_pbds::tree<
+	K, V, Comp,
+	__gnu_pbds::rb_tree_tag,
+	__gnu_pbds::tree_order_statistics_node_update
+>;
 
-typedef int tp;
-typedef tree<tp,null_type,less<tp>,rb_tree_tag,tree_order_statistics_node_update> pbds;
-// tp a;
-// T.insert(a), T.erase(a), T.size()
-// T.order_of_key(a) -- number of elements strictly less than a
-// *T.find_by_order(k) -- k-th element in increasing order
+template <typename K, typename Comp = std::less<K>>
+using ordered_set = ordered_map<K, __gnu_pbds::null_type, Comp>;
+
+// Supports
+//  auto iterator = ordered_set().find_by_order(idx); // (0-indexed)
+//  int num_strictly_smaller = ordered_set().order_of_key(key);
