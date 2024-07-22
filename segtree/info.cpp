@@ -1,7 +1,7 @@
 struct Info {
   ${0}... a = ...;
 
-  Info Unite(Info b) const {
+  Info Unite(const Info& b) const {
     Info res;
     ...
     return res;
