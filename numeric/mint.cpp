@@ -35,8 +35,8 @@ class Modular {
   explicit operator U() const { return static_cast<U>(value); }
   constexpr static Type mod() { return T::value; }
 
-  Modular& operator+=(const Modular& other) { if ((value += other.value) >= mod()) value -= mod(); return *this; }
-  Modular& operator-=(const Modular& other) { if ((value -= other.value) < 0) value += mod(); return *this; }
+  Modular& operator+=(const Modular& other) { value += other.value; value -= (value >= mod()) * mod(); return *this; }
+  Modular& operator-=(const Modular& other) { value -= other.value; value += (value < 0) * mod(); return *this; }
   template <typename U> Modular& operator+=(const U& other) { return *this += Modular(other); }
   template <typename U> Modular& operator-=(const U& other) { return *this -= Modular(other); }
   Modular& operator++() { return *this += 1; }
@@ -51,8 +51,8 @@ class Modular {
     return *this;
   }
   template <typename U = T>
-  typename enable_if<is_same<typename Modular<U>::Type, long long>::value, Modular>::type& operator*=(const Modular& rhs) {
-    long long q = static_cast<long long>(static_cast<long double>(value) * rhs.value / mod());
+  typename enable_if<is_same<typename Modular<U>::Type, int64_t>::value, Modular>::type& operator*=(const Modular& rhs) {
+    int64_t q = int64_t(static_cast<long double>(value) * rhs.value / mod());
     value = normalize(value * rhs.value - q * mod());
     return *this;
   }
@@ -137,7 +137,7 @@ U& operator<<(U& stream, const Modular<T>& number) {
 // U == std::istream? but done this way because of fastinput
 template <typename U, typename T>
 U& operator>>(U& stream, Modular<T>& number) {
-  typename common_type<typename Modular<T>::Type, long long>::type x;
+  typename common_type<typename Modular<T>::Type, int64_t>::type x;
   stream >> x;
   number.value = Modular<T>::normalize(x);
   return stream;

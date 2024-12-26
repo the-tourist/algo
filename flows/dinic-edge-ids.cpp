@@ -119,7 +119,7 @@ class flow_graph {
 
   // Maximum flow / minimum cut, Dinic's algorithm
   // Usage:
-  // 1) flow_graph<T> g(n, start, finish); [T == int / long long / double]
+  // 1) flow_graph<T> g(n, start, finish); [T == int / int64_t / double]
   // 2) g.add(from, to, forward_cap, backward_cap);
   // 3) cout << g.max_flow() << endl;
   // 4) vector<bool> cut = g.min_cut();

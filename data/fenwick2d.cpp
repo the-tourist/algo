@@ -4,7 +4,7 @@ class FenwickTree2D {
   vector<vector<T>> fenw;
   int n, m;
 
-  FenwickTree() : n(0), m(0) {}
+  FenwickTree2D() : n(0), m(0) {}
   FenwickTree2D(int n_, int m_) : n(n_), m(m_) {
     fenw.resize(n);
     for (int i = 0; i < n; i++) {

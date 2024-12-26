@@ -47,7 +47,7 @@ void solutionRunner() {
 
 using namespace std::chrono;
 
-long long now() {
+int64_t now() {
   milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
   return ms.count();
 }
@@ -55,7 +55,7 @@ long long now() {
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  long long start = now();
+  auto start = now();
   cin >> tt;
   cur = 0;
   for (int i = 0; i < maxThreads; i++) {
