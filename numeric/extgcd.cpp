@@ -53,17 +53,17 @@ bool diophantine(T a, T b, T c, T &x, T &y, T &g) {
   // |x|, |y| <= max(|a|, |b|, |c|) [tested]
 }
 
-bool crt(long long k1, long long m1, long long k2, long long m2, long long &k, long long &m) {
+bool crt(int64_t k1, int64_t m1, int64_t k2, int64_t m2, int64_t &k, int64_t &m) {
   k1 %= m1;
   if (k1 < 0) k1 += m1;
   k2 %= m2;
   if (k2 < 0) k2 += m2;
-  long long x, y, g;
+  int64_t x, y, g;
   if (!diophantine(m1, -m2, k2 - k1, x, y, g)) {
     return false;
   }
-  long long dx = m2 / g;
-  long long delta = x / dx - (x % dx < 0);
+  int64_t dx = m2 / g;
+  int64_t delta = x / dx - (x % dx < 0);
   k = m1 * (x - dx * delta) + k1;
   m = m1 / g * m2;
   assert(0 <= k && k < m);
@@ -92,7 +92,7 @@ void crt_garner(const vector<int>& p, const vector<int>& a, T& res) {
     assert(0 <= a[i] && a[i] < p[i]);
     x[i] = a[i];
     for (int j = 0; j < i; j++) {
-      x[i] = (int) ((long long) (x[i] - x[j]) * inverse(p[j], p[i]) % p[i]);
+      x[i] = int(int64_t(x[i] - x[j]) * inverse(p[j], p[i]) % p[i]);
       if (x[i] < 0) x[i] += p[i];
     }
   }

@@ -43,6 +43,10 @@ class matching {
   }
 
   int solve() {
+    mt19937_64 rng(uint32_t(chrono::steady_clock::now().time_since_epoch().count()));
+    for (int i = 0; i < n; i++) {
+      ranges::shuffle(g[i], rng);
+    }
     while (true) {
       iter++;
       int add = 0;

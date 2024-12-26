@@ -43,12 +43,12 @@ struct TPoint {
     if (a != b) {
       return (a ? -1 : 1);
     }
-    long long v = x * rhs.y - y * rhs.x;
+    auto v = x * rhs.y - y * rhs.x;
     return (v > eps ? -1 : (v < -eps ? 1 : 0));
   }
 };
 
-using Point = TPoint<long long>;
+using Point = TPoint<int64_t>;
 //using Point = TPoint<long double>;
 
 template <typename T>

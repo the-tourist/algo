@@ -12,7 +12,7 @@ class FenwickTree {
   }
 
   void Modify(int x, T v) {
-    assert(0 <= x && x < n);
+    assert(0 <= x && x <= n);
     while (x < n) {
       fenw[x] += v;
       x |= x + 1;
