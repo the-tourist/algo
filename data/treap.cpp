@@ -50,6 +50,9 @@ node* get_kth(node* v, int k) { // 0-indexed
 int get_position(node* v) { // 0-indexed
   int k = (v->l != nullptr ? v->l->sz : 0);
   while (v->p != nullptr) {
+    if (v->p->rev) {
+      k = v->sz - 1 - k;
+    }
     if (v == v->p->r) {
       k++;
       if (v->p->l != nullptr) {
