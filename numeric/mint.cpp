@@ -53,7 +53,7 @@ class Modular {
   template <typename U = T>
   typename enable_if<is_same<typename Modular<U>::Type, int64_t>::value, Modular>::type& operator*=(const Modular& rhs) {
     int64_t q = int64_t(static_cast<long double>(value) * rhs.value / mod());
-    value = normalize(value * rhs.value - q * mod());
+    value = normalize(int64_t(uint64_t(value) * uint64_t(rhs.value) - uint64_t(q) * uint64_t(mod())));
     return *this;
   }
   template <typename U = T>
