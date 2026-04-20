@@ -15,7 +15,7 @@ static struct FastInput {
     return cur = buf[buf_pos++];
   }
  
-  inline void tie(int) {}
+  inline void tie(ostream*) {}
 
   inline explicit operator bool() {
     return cur != -1;
