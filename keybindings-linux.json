@@ -57,7 +57,7 @@
         {
           "command": "workbench.action.terminal.sendSequence",
           "args": {
-            "text": "\u0003cd \"${fileDirname}\"\u000D"
+            "text": "cd \"${fileDirname}\"\u000D"
           }
         }
       ]
@@ -72,7 +72,7 @@
         {
           "command": "workbench.action.terminal.sendSequence",
           "args": {
-            "text": "\u0003cd \"${fileDirname}\" && g++ ${fileBasename} -o ${fileBasenameNoExtension}.exe -O2 -Wall -Wl,--stack=536870912 -Wextra -std=c++20 -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -fmax-errors=1 -DLOCAL\u000D"
+            "text": "cd \"${fileDirname}\" && g++ ${fileBasename} -o ${fileBasenameNoExtension} -O2 -Wall -Wextra -std=c++20 -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -fmax-errors=1 -DLOCAL\u000D"
           }
         }
       ]
@@ -87,7 +87,7 @@
         {
           "command": "workbench.action.terminal.sendSequence",
           "args": {
-            "text": "\u0003cd \"${fileDirname}\" && wsl g++ ${fileBasename} -o ${fileBasenameNoExtension}.lxe -g -std=c++20 -D_GLIBCXX_DEBUG && wsl gdb ${fileBasenameNoExtension}.lxe\u000D"
+            "text": "cd \"${fileDirname}\" && wsl g++ ${fileBasename} -o ${fileBasenameNoExtension}.lxe -g -std=c++20 -D_GLIBCXX_DEBUG && wsl gdb ${fileBasenameNoExtension}.lxe\u000D"
           }
         }
       ]
